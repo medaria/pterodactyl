@@ -20,6 +20,8 @@ jobs:
         version:
           - 8-0
           - 8-1
+          - 8-2
+          - 8-3
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
@@ -40,4 +42,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/Amuria-Aodes/pterodactyl:pterodactyl-php-${{ matrix.version }}
+            ghcr.io/Amuria-Codes/pterodactyl:pterodactyl-php-${{ matrix.version }}
