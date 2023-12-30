@@ -1,11 +1,11 @@
 FROM debian:buster-slim
 
-LABEL author="Gabriel BTD"
-LABEL maintainer="gabriel.btd@agamicloud.tech"
-LABEL org.opencontainers.image.source="https://github.com/legabi/containers"
+LABEL author="Amuria-Codes ( https://auroa.cloud )"
+LABEL maintainer="hello@auroa.cloud"
+LABEL org.opencontainers.image.source="https://github.com/Amuria-Codes/pterodactyl-container/"
 LABEL org.opencontainers.image.description="A Docker image to run PHP 8.0 on Pterodactyl"
 
-# Mise à jour et installation des dépendances nécessaires pour PHP
+# Updating and installing the necessary PHP dependencies
 RUN apt-get update && apt-get install -y \
     apt-transport-https \
     ca-certificates \
@@ -14,16 +14,16 @@ RUN apt-get update && apt-get install -y \
     lsb-release \
     software-properties-common
 
-# Téléchargement et ajout de la clé GPG pour le dépôt Sury PHP
+# Downloading and adding the GPG key for the Sury PHP repository
 RUN curl https://packages.sury.org/php/apt.gpg -o /etc/apt/trusted.gpg.d/php.gpg
 
-# Ajout du dépôt Sury PHP dans sources.list.d
+# Adding the Sury PHP repository to sources.list.d
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
 
-# Installation de PHP 8.0
+# Installation PHP 8.0
 RUN apt-get update && apt-get install -y php8.0
 
-# Installation des extensions PHP spécifiées
+# Installation of specified PHP extensions
 RUN apt-get install -y \
     php8.0-common \
     php8.0-cli \
@@ -38,16 +38,16 @@ RUN apt-get install -y \
     php8.0-sqlite3 \
     php8.0-ldap
 
-# Création du lien symbolique s'il n'existe pas déjà
+# Create symbolic link if it doesn't already exist
 RUN if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php8.0 /usr/bin/php; fi
 
-# Vérification de la version PHP et création de l'utilisateur container
+# Check PHP version and create container user
 RUN php -v && useradd -d /home/container -m container
 
-# Installation de Composer
+# Composer installation
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
-# Changement de l'emplacement des sessions PHP pour /home/container/tmp
+# Change PHP session location to /home/container/tmp
 RUN sed -i 's/\/var\/lib\/php\/sessions/\/home\/container\/tmp/g' /etc/php/8.0/fpm/php.ini
 
 USER container
