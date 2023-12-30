@@ -36,7 +36,12 @@ RUN apt-get install -y \
     php8.1-curl \
     php8.1-zip \
     php8.1-sqlite3 \
-    php8.1-ldap
+    php8.1-ldap \
+    php8.1-imagick \
+    php8.1-gmp \
+    php8.1-bcmath \
+    php8.1-intl \
+    php8.1-bz2
 
 # Create symbolic link if it doesn't already exist
 RUN if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php8.1 /usr/bin/php; fi
