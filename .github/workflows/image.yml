@@ -9,7 +9,7 @@ on:
 
 jobs:
   push:
-    name: "Pterodactyl-PHP-${{ matrix.version }}"
+    name: "PHP-${{ matrix.version }}"
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -42,4 +42,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/Amuria-Codes/pterodactyl:php-${{ matrix.version }}
+            ghcr.io/medaria/pterodactyl:php-${{ matrix.version }}
