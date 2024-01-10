@@ -44,7 +44,7 @@ RUN apt-get install -y \
     php8.3-bz2
 
 # Create symbolic link if it doesn't already exist
-RUN if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php8.1 /usr/bin/php; fi
+RUN if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php8.3 /usr/bin/php; fi
 
 # Check PHP version and create container user
 RUN php -v && useradd -d /home/container -m container
