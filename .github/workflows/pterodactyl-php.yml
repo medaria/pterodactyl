@@ -42,4 +42,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/Amuria-Codes/pterodactyl:pterodactyl-php-${{ matrix.version }}
+            ghcr.io/Amuria-Codes/pterodactyl:php-${{ matrix.version }}
