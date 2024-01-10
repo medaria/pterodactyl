@@ -2,7 +2,7 @@ FROM debian:buster-slim
 
 LABEL author="Amuria-Codes ( https://auroa.cloud )"
 LABEL maintainer="hello@auroa.cloud"
-LABEL org.opencontainers.image.source="https://github.com/Amuria-Codes/pterodactyl-container/"
+LABEL org.opencontainers.image.source="https://github.com/Amuria-Codes/pterodactyl/"
 LABEL org.opencontainers.image.description="A Docker image to run PHP 8.2 on Pterodactyl"
 
 # Updating and installing the necessary PHP dependencies
