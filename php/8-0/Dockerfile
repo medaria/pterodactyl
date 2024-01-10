@@ -20,7 +20,7 @@ RUN curl https://packages.sury.org/php/apt.gpg -o /etc/apt/trusted.gpg.d/php.gpg
 # Adding the Sury PHP repository to sources.list.d
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
 
-# Installation PHP 8.0
+# Installation PHP 8.0 local
 RUN apt-get update && apt-get install -y php8.0
 
 # Installation of specified PHP extensions
