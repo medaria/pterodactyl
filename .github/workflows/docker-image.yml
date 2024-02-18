@@ -42,4 +42,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/medaria/pterodactyl-php-${{ matrix.version }}
+            ghcr.io/medaria/pterodactyl:php-${{ matrix.version }}
