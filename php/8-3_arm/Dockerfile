@@ -1,5 +1,5 @@
 # Stage 1: Build environment
-FROM alpine:3.12 AS builder
+FROM alpine:3.19 AS builder
 
 LABEL author="Amuria-Codes (https://auroa.cloud)"
 LABEL maintainer="hello@auroa.cloud"
@@ -25,27 +25,27 @@ RUN apk add --no-cache perl
 RUN curl --insecure https://packages.sury.org/php/apt.gpg -o /etc/apk/keys/php-alpine.rsa.pub
 
 # Hinzufügen des Sury PHP-Repositorys zur sources.list.d
-RUN echo "https://packages.sury.org/php/3.12/main" >> /etc/apk/repositories
+RUN echo "https://pkgs.alpinelinux.org/package/v3.19/community/aarch64/" >> /etc/apk/repositories
 
 # Installation der angegebenen PHP-Erweiterungen
 RUN apk update && apk add --no-cache \
-    php8.3 \
-    php8.3-common \
-    php8.3-cli \
-    php8.3-gd \
-    php8.3-mysqlnd \
-    php8.3-mbstring \
-    php8.3-bcmath \
-    php8.3-xml \
-    php8.3-fpm \
-    php8.3-curl \
-    php8.3-zip \
-    php8.3-sqlite3 \
-    php8.3-ldap \
-    php8.3-imagick \
-    php8.3-gmp \
-    php8.3-intl \
-    php8.3-bz2
+    php83 \
+    php83-common \
+    php83-cli \
+    php83-gd \
+    php83-mysqlnd \
+    php83-mbstring \
+    php83-bcmath \
+    php83-xml \
+    php83-fpm \
+    php83-curl \
+    php83-zip \
+    php83-sqlite3 \
+    php83-ldap \
+    php83-imagick \
+    php83-gmp \
+    php83-intl \
+    php83-bz2
 
 # Erstellen eines symbolischen Links, falls dieser noch nicht existiert
 RUN ln -s /usr/bin/php8.3 /usr/bin/php
@@ -60,7 +60,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 RUN sed -i 's/\/var\/lib\/php\/sessions/\/home\/container\/tmp/g' /etc/php8.3/php.ini
 
 # Stage 2: Final environment
-FROM alpine:3.12
+FROM alpine:3.19
 
 # Kopieren der erforderlichen Dateien aus dem Builder-Stage
 COPY --from=builder / /
