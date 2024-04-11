@@ -22,7 +22,7 @@ RUN apk add --no-cache gnupg
 RUN apk add --no-cache perl
 
 # Installieren von perl-readline anstelle von perl-term-readline
-RUN apk add --no-cache perl-readline
+RUN apk add --no-cache 	perl-term-readline-gnu
 
 
 # Herunterladen und Hinzufügen des GPG-Schlüssels für das Sury PHP-Repository
