@@ -46,7 +46,7 @@ RUN apk add --upgrade php83-intl
 RUN apk add --upgrade php83-bz2
 
 # Erstellen eines symbolischen Links, falls dieser noch nicht existiert
-RUN ln -s /usr/bin/php8.3 /usr/bin/php
+RUN ln -s /usr/bin/php83 /usr/bin/php
 
 # Überprüfung der PHP-Version und Erstellen des Container-Benutzers
 RUN php -v && adduser -D -h /home/container container
@@ -55,7 +55,7 @@ RUN php -v && adduser -D -h /home/container container
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
 # Ändern des PHP-Sessionspeicherorts auf /home/container/tmp
-RUN sed -i 's/\/var\/lib\/php\/sessions/\/home\/container\/tmp/g' /etc/php8.3/php.ini
+RUN sed -i 's/\/var\/lib\/php\/sessions/\/home\/container\/tmp/g' /etc/php83/php.ini
 
 # Stage 2: Final environment
 FROM alpine:3.19
