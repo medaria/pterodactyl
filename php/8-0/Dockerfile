@@ -1,6 +1,7 @@
-FROM debian:buster-slim
+# Stage 1: Build environment
+FROM debian:buster-slim AS builder
 
-LABEL author="Amuria-Codes ( https://auroa.cloud )"
+LABEL author="Amuria-Codes (https://auroa.cloud)"
 LABEL maintainer="hello@auroa.cloud"
 LABEL org.opencontainers.image.source="https://github.com/medaria/pterodactyl/"
 LABEL org.opencontainers.image.description="A Docker image to run PHP 8.0 on Pterodactyl"
@@ -20,11 +21,8 @@ RUN curl https://packages.sury.org/php/apt.gpg -o /etc/apt/trusted.gpg.d/php.gpg
 # Adding the Sury PHP repository to sources.list.d
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
 
-# Installation PHP 8.0 local
-RUN apt-get update && apt-get install -y php8.0
-
 # Installation of specified PHP extensions
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
     php8.0-common \
     php8.0-cli \
     php8.0-gd \
@@ -54,6 +52,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 
 # Change PHP session location to /home/container/tmp
 RUN sed -i 's/\/var\/lib\/php\/sessions/\/home\/container\/tmp/g' /etc/php/8.0/fpm/php.ini
+
+# Stage 2: Final environment
+FROM debian:buster-slim
+
+# Copying necessary files from builder stage
+COPY --from=builder / /
 
 USER container
 ENV USER=container HOME=/home/container
