@@ -1,5 +1,5 @@
 # Stage 1: Build environment
-FROM alpine:3.14 AS builder
+FROM alpine:3.12 AS builder
 
 LABEL author="Amuria-Codes (https://auroa.cloud)"
 LABEL maintainer="hello@auroa.cloud"
@@ -18,7 +18,7 @@ RUN apk update && apk add --no-cache \
 RUN curl --insecure https://packages.sury.org/php/apt.gpg -o /etc/apk/keys/php-alpine.rsa.pub
 
 # Hinzufügen des Sury PHP-Repositorys zur sources.list.d
-RUN echo "https://packages.sury.org/php/3.14/main" >> /etc/apk/repositories
+RUN echo "https://packages.sury.org/php/3.12/main" >> /etc/apk/repositories
 
 # Installation der angegebenen PHP-Erweiterungen
 RUN apk update && apk add --no-cache \
@@ -53,7 +53,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 RUN sed -i 's/\/var\/lib\/php\/sessions/\/home\/container\/tmp/g' /etc/php8.3/php.ini
 
 # Stage 2: Final environment
-FROM alpine:3.14
+FROM alpine:3.12
 
 # Kopieren der erforderlichen Dateien aus dem Builder-Stage
 COPY --from=builder / /
