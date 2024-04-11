@@ -52,7 +52,7 @@ RUN ln -s /usr/bin/php83 /usr/bin/php
 RUN php -v && adduser -D -h /home/container container
 
 # Composer-Installation
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+RUN apk add --upgrade composer
 
 # Ändern des PHP-Sessionspeicherorts auf /home/container/tmp
 RUN sed -i 's/\/var\/lib\/php\/sessions/\/home\/container\/tmp/g' /etc/php83/php.ini
