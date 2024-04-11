@@ -21,8 +21,9 @@ RUN apk add --no-cache gnupg
 # Installieren von Perl
 RUN apk add --no-cache perl
 
-# Installieren von perl-term-readline
-RUN apk add --no-cache perl-term-readline
+# Installieren von perl-readline anstelle von perl-term-readline
+RUN apk add --no-cache perl-readline
+
 
 # Herunterladen und Hinzufügen des GPG-Schlüssels für das Sury PHP-Repository
 RUN curl --insecure https://packages.sury.org/php/apt.gpg -o /etc/apk/keys/php-alpine.rsa.pub
