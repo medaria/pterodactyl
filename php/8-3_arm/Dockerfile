@@ -6,9 +6,11 @@ LABEL maintainer="hello@auroa.cloud"
 LABEL org.opencontainers.image.source="https://github.com/medaria/pterodactyl/"
 LABEL org.opencontainers.image.description="A Docker image to run PHP 8.3 on Pterodactyl"
 
+# Update der Paketliste
+RUN apk update
+
 # Installieren von Curl und anderen notwendigen Paketen
-RUN apk update && \
-    apk add --no-cache \
+RUN apk add --no-cache \
     curl \
     ca-certificates \
     gnupg \
