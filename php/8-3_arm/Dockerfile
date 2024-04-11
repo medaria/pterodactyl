@@ -53,7 +53,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 RUN sed -i 's/\/var\/lib\/php\/sessions/\/home\/container\/tmp/g' /etc/php8.3/php.ini
 
 # Stage 2: Final environment
-FROM alpine:3.4
+FROM alpine:3.14
 
 # Kopieren der erforderlichen Dateien aus dem Builder-Stage
 COPY --from=builder / /
