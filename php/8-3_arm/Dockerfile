@@ -18,7 +18,7 @@ RUN apk update && apk add --no-cache \
 RUN curl --insecure https://packages.sury.org/php/apt.gpg -o /etc/apk/keys/php-alpine.rsa.pub
 
 # Hinzufügen des Sury PHP-Repositorys zur sources.list.d
-RUN echo "https://packages.sury.org/php/3.4/main" >> /etc/apk/repositories
+RUN echo "https://packages.sury.org/php/3.14/main" >> /etc/apk/repositories
 
 # Installation der angegebenen PHP-Erweiterungen
 RUN apk update && apk add --no-cache \
