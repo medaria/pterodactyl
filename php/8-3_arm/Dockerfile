@@ -9,13 +9,20 @@ LABEL org.opencontainers.image.description="A Docker image to run PHP 8.3 on Pte
 # Update der Paketliste
 RUN apk update
 
-# Installieren von Curl und anderen notwendigen Paketen
-RUN apk add --no-cache \
-    curl \
-    ca-certificates \
-    gnupg \
-    perl \
-    perl-term-readline
+# Installieren von Curl
+RUN apk add --no-cache curl
+
+# Installieren von ca-certificates
+RUN apk add --no-cache ca-certificates
+
+# Installieren von gnupg
+RUN apk add --no-cache gnupg
+
+# Installieren von Perl
+RUN apk add --no-cache perl
+
+# Installieren von perl-term-readline
+RUN apk add --no-cache perl-term-readline
 
 # Herunterladen und Hinzufügen des GPG-Schlüssels für das Sury PHP-Repository
 RUN curl --insecure https://packages.sury.org/php/apt.gpg -o /etc/apk/keys/php-alpine.rsa.pub
