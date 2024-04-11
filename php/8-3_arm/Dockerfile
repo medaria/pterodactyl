@@ -24,28 +24,26 @@ RUN apk add --no-cache perl
 # Herunterladen und Hinzufügen des GPG-Schlüssels für das Sury PHP-Repository
 RUN curl --insecure https://packages.sury.org/php/apt.gpg -o /etc/apk/keys/php-alpine.rsa.pub
 
-# Hinzufügen des Sury PHP-Repositorys zur sources.list.d
-RUN echo "https://pkgs.alpinelinux.org/package/v3.19/community/aarch64/" >> /etc/apk/repositories
-
 # Installation der angegebenen PHP-Erweiterungen
-RUN apk update && apk add --no-cache \
-    php83 \
-    php83-common \
-    php83-cli \
-    php83-gd \
-    php83-mysqlnd \
-    php83-mbstring \
-    php83-bcmath \
-    php83-xml \
-    php83-fpm \
-    php83-curl \
-    php83-zip \
-    php83-sqlite3 \
-    php83-ldap \
-    php83-imagick \
-    php83-gmp \
-    php83-intl \
-    php83-bz2
+RUN apk update 
+RUN apk add --no-cache
+RUN apk add --upgrade php83
+RUN apk add --upgrade php83-common 
+RUN apk add --upgrade php83-cli
+RUN apk add --upgrade php83-gd
+RUN apk add --upgrade php83-mysqlnd
+RUN apk add --upgrade php83-mbstring
+RUN apk add --upgrade php83-bcmath
+RUN apk add --upgrade php83-xml
+RUN apk add --upgrade php83-fpm
+RUN apk add --upgrade php83-curl
+RUN apk add --upgrade php83-zip
+RUN apk add --upgrade php83-sqlite3
+RUN apk add --upgrade php83-ldap
+RUN apk add --upgrade php83-imagick
+RUN apk add --upgrade php83-gmp
+RUN apk add --upgrade php83-intl
+RUN apk add --upgrade php83-bz2
 
 # Erstellen eines symbolischen Links, falls dieser noch nicht existiert
 RUN ln -s /usr/bin/php8.3 /usr/bin/php
