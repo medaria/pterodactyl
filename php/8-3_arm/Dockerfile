@@ -54,6 +54,9 @@ RUN php -v && adduser -D -h /home/container container
 # Composer-Installation
 RUN apk add --upgrade composer
 
+# Composer curl
+RUN curl -sS 'https:\/\/getcomposer.org\/installer' | php -- --install-dir=/usr/bin --filename=composer
+
 # Ändern des PHP-Sessionspeicherorts auf /home/container/tmp
 RUN sed -i 's/\/var\/lib\/php\/sessions/\/home\/container\/tmp/g' /etc/php83/php.ini
 
