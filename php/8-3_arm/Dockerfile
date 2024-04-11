@@ -6,20 +6,19 @@ LABEL maintainer="hello@auroa.cloud"
 LABEL org.opencontainers.image.source="https://github.com/medaria/pterodactyl/"
 LABEL org.opencontainers.image.description="A Docker image to run PHP 8.3 on Pterodactyl"
 
-# Installation der notwendigen Abhängigkeiten
+# Installieren von Curl und anderen notwendigen Paketen
 RUN apk update && apk add --no-cache \
     curl \
     ca-certificates \
     gnupg \
-    lsb-release \
-    software-properties-common \
-    libterm-readline-gnu-perl # Installieren des Term::ReadLine-Moduls
+    perl \
+    perl-term-readline
 
-# Herunterladen und Hinzufügen des GPG-Schlüssels für das Sury PHP-Repository mit der Option insecure
+# Herunterladen und Hinzufügen des GPG-Schlüssels für das Sury PHP-Repository
 RUN curl --insecure https://packages.sury.org/php/apt.gpg -o /etc/apk/keys/php-alpine.rsa.pub
 
-# Hinzufügen des Sury PHP-Repositorys zu den sources.list
-RUN echo "https://packages.sury.org/php alpine/v3.14/main" >> /etc/apk/repositories
+# Hinzufügen des Sury PHP-Repositorys zur sources.list.d
+RUN echo "https://packages.sury.org/php/3.4/main" >> /etc/apk/repositories
 
 # Installation der angegebenen PHP-Erweiterungen
 RUN apk update && apk add --no-cache \
@@ -41,29 +40,28 @@ RUN apk update && apk add --no-cache \
     php8.3-intl \
     php8.3-bz2
 
-# Symbolischen Link erstellen, falls noch nicht vorhanden
+# Erstellen eines symbolischen Links, falls dieser noch nicht existiert
 RUN ln -s /usr/bin/php8.3 /usr/bin/php
 
-# PHP-Version überprüfen und Benutzer im Container erstellen
+# Überprüfung der PHP-Version und Erstellen des Container-Benutzers
 RUN php -v && adduser -D -h /home/container container
 
 # Composer-Installation
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
-# Ändern des PHP-Sitzungsspeicherorts auf /home/container/tmp
-RUN sed -i 's/\/var\/lib\/php\/sessions/\/home\/container\/tmp/g' /etc/php8/php-fpm.d/www.conf
+# Ändern des PHP-Sessionspeicherorts auf /home/container/tmp
+RUN sed -i 's/\/var\/lib\/php\/sessions/\/home\/container\/tmp/g' /etc/php8.3/php.ini
 
 # Stage 2: Final environment
-FROM alpine:3.14
+FROM alpine:3.4
 
-# Notwendige Dateien aus dem Builder-Stage kopieren
+# Kopieren der erforderlichen Dateien aus dem Builder-Stage
 COPY --from=builder / /
 
-# Benutzer im Container festlegen
+# Festlegen des Benutzers und Arbeitsverzeichnisses
 USER container
 ENV USER=container HOME=/home/container
 WORKDIR /home/container
 
-# Entry Point kopieren und CMD festlegen
 COPY ../entrypoint.sh /entrypoint.sh
-CMD [ "/bin/bash", "/entrypoint.sh" ]
+CMD ["/bin/bash", "/entrypoint.sh"]
