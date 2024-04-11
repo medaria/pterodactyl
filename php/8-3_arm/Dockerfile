@@ -40,7 +40,7 @@ RUN apk add --upgrade php83-curl
 RUN apk add --upgrade php83-zip
 RUN apk add --upgrade php83-sqlite3
 RUN apk add --upgrade php83-ldap
-RUN apk add --upgrade php83-imagick
+RUN apk add --upgrade php83-pecl-imagick
 RUN apk add --upgrade php83-gmp
 RUN apk add --upgrade php83-intl
 RUN apk add --upgrade php83-bz2
