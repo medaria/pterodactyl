@@ -1,8 +1,8 @@
 #!/bin/bash
-# Entry point script to start PHP-FPM and Nginx
+set -e
 
-# Start PHP-FPM
-php-fpm8.3
-
-# Start Nginx
+# NGINX starten
 nginx -g "daemon off;"
+
+# Optional: PHP-FPM starten
+php-fpm8.3 -F
