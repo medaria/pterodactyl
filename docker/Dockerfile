@@ -1,12 +1,12 @@
 # Stage 1: Build environment
-FROM debian:buster-slim AS builder
+FROM debian:bullseye-slim AS builder
 
 LABEL author="Amuria-Codes (https://auroa.cloud)"
 LABEL maintainer="hello@auroa.cloud"
 LABEL org.opencontainers.image.source="https://github.com/medaria/pterodactyl/"
 LABEL org.opencontainers.image.description="A Docker image to run PHP 8.3 on Pterodactyl"
 
-# Updating and installing the necessary dependencies
+# Updating and installing necessary dependencies
 RUN apt-get update && apt-get install -y \
     apt-transport-https \
     ca-certificates \
@@ -57,7 +57,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 RUN sed -i 's/\/var\/lib\/php\/sessions/\/home\/container\/tmp/g' /etc/php/8.3/fpm/php.ini
 
 # Stage 2: Final environment
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 # Copying necessary files from builder stage
 COPY --from=builder / /
