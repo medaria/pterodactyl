@@ -1,5 +1,5 @@
 # Stage 1: Build environment
-FROM debian:buster-slim AS builder
+FROM debian:bullseye-slim AS builder
 
 LABEL author="Amuria-Codes (https://auroa.cloud)"
 LABEL maintainer="hello@auroa.cloud"
@@ -55,7 +55,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 RUN sed -i 's/\/var\/lib\/php\/sessions/\/home\/container\/tmp/g' /etc/php/8.2/fpm/php.ini
 
 # Stage 2: Final environment
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 # Copying necessary files from builder stage
 COPY --from=builder / /
