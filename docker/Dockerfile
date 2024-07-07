@@ -67,7 +67,7 @@ ENV USER=container HOME=/home/container
 WORKDIR /home/container
 
 COPY ../entrypoint.sh /entrypoint.sh
-COPY ../nginx.conf /etc/nginx/nginx.conf
-COPY ../php-fpm.conf /etc/php/8.3/fpm/php-fpm.conf
+COPY ../nginx.conf /nginx/nginx.conf
+COPY ../php-fpm.conf /php/8.3/fpm/php-fpm.conf
 
 CMD [ "/bin/bash", "/entrypoint.sh" ]
