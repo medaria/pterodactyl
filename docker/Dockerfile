@@ -6,7 +6,7 @@ LABEL maintainer="hello@auroa.cloud"
 LABEL org.opencontainers.image.source="https://github.com/medaria/pterodactyl/"
 LABEL org.opencontainers.image.description="A Docker image to run PHP 8.3 on Pterodactyl"
 
-# Updating and installing the necessary PHP dependencies
+# Updating and installing the necessary dependencies
 RUN apt-get update && apt-get install -y \
     apt-transport-https \
     ca-certificates \
@@ -14,15 +14,17 @@ RUN apt-get update && apt-get install -y \
     gnupg \
     lsb-release \
     software-properties-common \
-    libterm-readline-gnu-perl # Install Term::ReadLine module
+    libterm-readline-gnu-perl \
+    mariadb-server \
+    nginx \
+    wget \
+    unzip
 
-# Downloading and adding the GPG key for the Sury PHP repository
+# Adding the GPG key and repository for PHP 8.3
 RUN curl -fsSL https://packages.sury.org/php/apt.gpg | apt-key add -
-
-# Adding the Sury PHP repository to sources.list.d
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
 
-# Installation of specified PHP extensions and nginx
+# Installing PHP 8.3 and necessary extensions
 RUN apt-get update && apt-get install -y \
     php8.3-common \
     php8.3-cli \
@@ -40,8 +42,7 @@ RUN apt-get update && apt-get install -y \
     php8.3-gmp \
     php8.3-bcmath \
     php8.3-intl \
-    php8.3-bz2 \
-    nginx
+    php8.3-bz2
 
 # Create symbolic link if it doesn't already exist
 RUN if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php8.3 /usr/bin/php; fi
